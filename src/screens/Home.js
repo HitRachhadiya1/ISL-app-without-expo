@@ -4,76 +4,102 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
+  Image,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import metrics from '../utils/metrics';
 
 const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
 
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.appName}>NEXA Translator</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Icon name="account-circle" size={28} color="#6C63FF" />
+        <TouchableOpacity
+          style={styles.profileButton}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('Profile')}>
+          <Icon name="account-circle" size={30} color="#6C63FF" />
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content}>
-        {/* Welcome Section */}
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.welcomeSection}>
-          <Text style={styles.welcomeHeading}>Hello!</Text>
-          <Text style={styles.welcomeText}>
+          <Text style={styles.welcomeText}>Hello!</Text>
+          <Text style={styles.welcomeSubtext}>
             Welcome to NEXA, your sign language companion
           </Text>
         </View>
 
-        {/* Features Section */}
-        <Text style={styles.sectionTitle}>Choose a Feature</Text>
+        <Text style={styles.featuresTitle}>Choose a Feature</Text>
 
-        {/* Word to Sign Card */}
         <TouchableOpacity
-          style={styles.card}
+          style={styles.featureCard}
+          activeOpacity={0.7}
           onPress={() => navigation.navigate('WordToSign')}>
-          <View style={styles.cardHeader}>
-            <Icon name="gesture" size={24} color="#6C63FF" />
-            <Text style={styles.cardTitle}>Word to Sign</Text>
+          <View style={styles.featureImageContainer}>
+            <Image
+              source={require('../assets/wmremove-transformed.jpeg')}
+              style={styles.featureImage}
+              resizeMode="cover"
+            />
           </View>
-          <Text style={styles.cardText}>
-            Convert text into sign language visuals. Type a word and see its
-            sign language representation.
-          </Text>
-          <View style={styles.cardFooter}>
-            <Text style={styles.actionText}>Get Started</Text>
-            <Icon name="chevron-right" size={20} color="#6C63FF" />
+          <View style={styles.featureContent}>
+            <View style={styles.featureIconContainer}>
+              <Icon name="gesture" size={24} color="#fff" />
+            </View>
+            <Text style={styles.featureTitle}>Word to Sign</Text>
+            <Text style={styles.featureDescription}>
+              Convert text into sign language visuals. Type a word and see its
+              sign language representation.
+            </Text>
+            <View style={styles.startButtonContainer}>
+              <Text style={styles.startButtonText}>Get Started</Text>
+              <Icon name="arrow-right" size={20} color="#6C63FF" />
+            </View>
           </View>
         </TouchableOpacity>
 
-        {/* Real-time Detection Card */}
         <TouchableOpacity
-          style={styles.card}
+          style={styles.featureCard}
+          activeOpacity={0.7}
           onPress={() => navigation.navigate('RealTimeDetection')}>
-          <View style={styles.cardHeader}>
-            <Icon name="camera" size={24} color="#6C63FF" />
-            <Text style={styles.cardTitle}>Real-time Detection</Text>
+          <View style={styles.featureImageContainer}>
+            <Image
+              source={require('../assets/realtimetranslator.png')}
+              style={styles.featureImage}
+              resizeMode="cover"
+            />
           </View>
-          <Text style={styles.cardText}>
-            Use your camera to detect and translate sign language gestures in
-            real-time.
-          </Text>
-          <View style={styles.cardFooter}>
-            <Text style={styles.actionText}>Get Started</Text>
-            <Icon name="chevron-right" size={20} color="#6C63FF" />
+          <View style={styles.featureContent}>
+            <View
+              style={[
+                styles.featureIconContainer,
+                {backgroundColor: '#FF6584'},
+              ]}>
+              <Icon name="camera" size={24} color="#fff" />
+            </View>
+            <Text style={styles.featureTitle}>Real-time Detection</Text>
+            <Text style={styles.featureDescription}>
+              Use your camera to detect and translate sign language gestures in
+              real-time.
+            </Text>
+            <View style={styles.startButtonContainer}>
+              <Text style={styles.startButtonText}>Get Started</Text>
+              <Icon name="arrow-right" size={20} color="#6C63FF" />
+            </View>
           </View>
         </TouchableOpacity>
 
-        {/* Info Banner */}
-        <View style={styles.infoBanner}>
-          <Icon name="information" size={20} color="#6C63FF" />
+        <View style={styles.infoCard}>
+          <Icon name="information-outline" size={24} color="#6C63FF" />
           <Text style={styles.infoText}>
             Learn sign language faster with our AI-powered recognition system
           </Text>
@@ -86,92 +112,129 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAFAFA',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#fff',
+    elevation: 2,
   },
   appName: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#333',
   },
-  content: {
-    padding: 16,
+  profileButton: {
+    padding: 5,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 30,
   },
   welcomeSection: {
-    marginBottom: 24,
-  },
-  welcomeHeading: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#2d2d2d',
-    marginBottom: 8,
+    marginTop: 25,
+    marginBottom: 30,
   },
   welcomeText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  welcomeSubtext: {
     fontSize: 16,
     color: '#666',
-    lineHeight: 24,
+    marginTop: 5,
+    lineHeight: 22,
   },
-  sectionTitle: {
+  featuresTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#444',
-    marginBottom: 16,
+    color: '#333',
+    marginBottom: 15,
   },
-  card: {
+  featureCard: {
     backgroundColor: '#fff',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#eee',
-    padding: 16,
-    marginBottom: 16,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
   },
-  cardHeader: {
-    flexDirection: 'row',
+  featureImageContainer: {
+    height: 180,
+    width: '100%',
+    backgroundColor: '#F5F5F5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  featureImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  featureContent: {
+    padding: 20,
+  },
+  featureIconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    backgroundColor: '#6C63FF',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+  featureTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
     color: '#333',
-    marginLeft: 12,
+    marginBottom: 8,
   },
-  cardText: {
+  featureDescription: {
     fontSize: 14,
     color: '#666',
-    lineHeight: 22,
-    marginBottom: 16,
+    lineHeight: 20,
+    marginBottom: 15,
   },
-  cardFooter: {
+  startButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
   },
-  actionText: {
+  startButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
     color: '#6C63FF',
-    fontWeight: '500',
-    marginRight: 8,
+    marginRight: 5,
   },
-  infoBanner: {
+  infoCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f7ff',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 16,
+    backgroundColor: '#E8E6FF',
+    padding: 15,
+    borderRadius: 12,
+    marginTop: 10,
+    marginBottom: 20,
   },
   infoText: {
-    fontSize: 14,
-    color: '#555',
-    marginLeft: 12,
     flex: 1,
+    fontSize: 14,
+    color: '#444',
+    marginLeft: 10,
+    lineHeight: 20,
   },
 });
 
